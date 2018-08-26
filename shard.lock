@@ -1,0 +1,30 @@
+version: 1.0
+shards:
+  crystweet:
+    github: akarimcheese/crystweet
+    commit: 27c5776ab562d7720afc1a188ff2913aba6dad0b
+
+  dotenv:
+    github: gdotdesign/cr-dotenv
+    version: 0.1.0
+
+  exception_page:
+    github: crystal-loot/exception_page
+    version: 0.1.1
+
+  kemal:
+    github: kemalcr/kemal
+    version: 0.24.0
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.4.0
+
+  mastodon:
+    github: bkerley/mastodon.cr
+    commit: 0c5ba58a7a063e79fdfc0116044f68b3c717b434
+
+  radix:
+    github: luislavena/radix
+    version: 0.3.8
+

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>SwitchStreamer</title>
+  </head>
+  <body>
+    <h1>SwitchStreamer</h1>
+    <dl>
+      <dt>version</dt>
+      <dd><%= SwitchStreamer::VERSION %></dd>
+      <dt>bearer token</dt>
+      <dd><%=HTML.escape client.bearer_token %></dd>
+    </dl>
+    <h2>Subscriptions</h2>
+    <form action="/purge_subs" method="post">
+      <input type="submit" value="purge subscriptions" />
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% client.list_subscriptions.each do |sub| %>
+        <tr>
+          <td><%=HTML.escape sub.id %></td>
+          <td><%=HTML.escape sub.url %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>
