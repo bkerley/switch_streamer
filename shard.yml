@@ -1,0 +1,13 @@
+name: switch_streamer
+version: 0.1.0
+
+authors:
+  - Bryce Kerley <bkerley@brycekerley.net>
+
+targets:
+  switch_streamer:
+    main: src/switch_streamer.cr
+
+crystal: 0.26.0
+
+license: MIT
