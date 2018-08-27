@@ -8,25 +8,50 @@
     <dl>
       <dt>version</dt>
       <dd><%= SwitchStreamer::VERSION %></dd>
-      <dt>bearer token</dt>
-      <dd><%=HTML.escape client.bearer_token %></dd>
+      <dt>my url</dt>
+      <dd><%= ENV["DOMAIN"] %></dd>
+      <dt>subscription count</dt>
+      <dd><%= client.count_subscriptions.subscriptions_count %></dd>
     </dl>
-    <h2>Subscriptions</h2>
-    <form action="/purge_subs" method="post">
-      <input type="submit" value="purge subscriptions" />
-    </form>
+    <h2>Hooks</h2>
+    <nav>
+      <ul>
+        <li>
+          <form action="/create_hook" method="post">
+            <input type="submit" value="add hook" />
+          </form>
+        </li>
+        <li>
+          <form action="/create_subscription" method="post">
+            <input type="submit" value="add subscription" />
+          </form>
+        </li>
+        <li>
+          <form action="/destroy_subscription" method="post">
+            <input type="submit" value="remove subscriptions" />
+          </form>
+        </li>
+      </ul>
+    </nav>
+
     <table>
       <thead>
         <tr>
           <th>id</th>
           <th>url</th>
+          <th>actions</th>
         </tr>
       </thead>
       <tbody>
-        <% client.list_subscriptions.each do |sub| %>
+        <% client.list_hooks.each do |sub| %>
         <tr>
           <td><%=HTML.escape sub.id %></td>
           <td><%=HTML.escape sub.url %></td>
+          <td>
+            <form action="/destroy_hook/<%= sub.id %>" method="post">
+              <input type="submit" value="destroy" />
+            </form>
+          </td>
         </tr>
         <% end %>
       </tbody>
