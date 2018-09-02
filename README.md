@@ -1,18 +1,24 @@
 # switch_streamer
 
-TODO: Write a description here
+copies tweets from nintendo switch to mastodon using twitter webhooks
 
-## Installation
-
-TODO: Write installation instructions here
+works on heroku!
 
 ## Usage
 
-TODO: Write usage instructions here
+1. copy `.env.example` to `.env`
+2. edit the values for your twitter api key that you have to literally beg
+   and grovel for now
+3. edit the values for your mastodon server and tokens; getting the access token
+   can be done with
+   [https://mastodon-oauth-utility.herokuapp.com][https://mastodon-oauth-utility.herokuapp.com]
+4. push it to heroku
+5. test it
 
 ## Development
 
-TODO: Write development instructions here
+no tests, ngrok can be useful for local development (twitter needs to GET and
+POST)
 
 ## Contributing
 
