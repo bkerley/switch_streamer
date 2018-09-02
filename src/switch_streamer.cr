@@ -94,10 +94,13 @@ post "/hook/twitter" do |env|
   next unless payload["for_user_id"] == ENV["TWITTER_USER"]
   next if payload["tweet_create_events"].nil?
 
+
   Array(::SwitchStreamer::TweetCreateEvent).
     from_json(payload["tweet_create_events"].to_json).
     each do |event|
-    copier.process event
+    spawn do
+      copier.process event
+    end
   end
 end
 
