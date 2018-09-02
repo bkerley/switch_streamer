@@ -38,6 +38,7 @@
       <thead>
         <tr>
           <th>id</th>
+          <th>valid?</th>
           <th>url</th>
           <th>actions</th>
         </tr>
@@ -46,6 +47,7 @@
         <% client.list_hooks.each do |sub| %>
         <tr>
           <td><%=HTML.escape sub.id %></td>
+          <td><%=HTML.escape sub.valid.to_s %></td>
           <td><%=HTML.escape sub.url %></td>
           <td>
             <form action="/destroy_hook/<%= sub.id %>" method="post">

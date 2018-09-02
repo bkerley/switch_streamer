@@ -1,9 +1,11 @@
 require "dotenv"
 require "kemal"
+require "kemal-basic-auth"
 
 require "./switch_streamer/client"
 require "./switch_streamer/challenge_responder"
 require "./switch_streamer/copier"
+require "./switch_streamer/hook_validator"
 require "./switch_streamer/mastodon"
 require "./switch_streamer/tweet_create_event"
 
@@ -25,6 +27,9 @@ client = ::SwitchStreamer::Client.new(
 
 challenge_responder =
   ::SwitchStreamer::ChallengeResponder.new(ENV["TWITTER_CONSUMER_SECRET"])
+
+hook_validator =
+  ::SwitchStreamer::HookValidator.new(ENV["TWITTER_CONSUMER_SECRET"])
 
 mastodon =
   ::Mastodon::REST::Client.new(
@@ -76,8 +81,14 @@ get "/hook/twitter" do |env|
 end
 
 post "/hook/twitter" do |env|
-  payload = env.params.json
+  expected_signature = env.request.headers["x-twitter-webhooks-signature"]
+  valid = hook_validator.validate_payload(expected_signature,
+                                          env.request.body)
 
+  next unless valid
+
+  payload = JSON.parse(valid).raw
+  next unless payload.is_a? Hash
   next unless payload["for_user_id"] == ENV["TWITTER_USER"]
   next if payload["tweet_create_events"].nil?
 

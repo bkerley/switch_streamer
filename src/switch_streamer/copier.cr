@@ -1,5 +1,6 @@
 require "http/client"
 require "tempfile"
+require "uuid"
 
 module SwitchStreamer
   class Copier
@@ -39,6 +40,7 @@ module SwitchStreamer
       return blank if media.nil?
 
       media.map do |medium|
+        pp medium
         case medium.type
         when "video"
           process_video(medium)
@@ -77,16 +79,14 @@ module SwitchStreamer
         best
       end
 
-      pp best_variant
-
       upload(best_variant.url)
     end
 
     private def upload(url)
-      filename_match = /(\w+\.\w\w\w):?\w*$/.match(url)
-      return nil unless filename_match && filename_match[1].is_a? String
-      filename = filename_match[1]
+      filename = UUID.random.to_s
+      
       media_attachment = nil
+      
       Tempfile.open(filename) do |temp|
         HTTP::Client.get url do |resp|
 
@@ -108,14 +108,13 @@ module SwitchStreamer
           temp.flush
         end
 
+        p temp.path
         media_attachment = @mastodon.media_upload temp.path
 
         temp.close
         temp.delete
 
       end
-
-      pp media_attachment
 
       return media_attachment
     end
