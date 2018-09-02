@@ -42,6 +42,8 @@ copier =
                                source: ENV["TWITTER_SOURCE"]
                               )
 
+basic_auth "admin", ENV["ADMIN_PASSWORD"], only: %r{^((?!/hook/twitter).)}
+
 get "/" do
   render "src/views/index.ecr"
 end

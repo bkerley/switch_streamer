@@ -15,6 +15,9 @@ license: MIT
 dependencies:
   kemal:
     github: kemalcr/kemal
+  kemal-basic-auth:
+    github: maiha/kemal-basic-auth
+    branch: only
   dotenv:
     github: gdotdesign/cr-dotenv
   twitter-crystal:
