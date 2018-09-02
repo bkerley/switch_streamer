@@ -29,6 +29,6 @@ shards:
     version: 0.3.8
 
   twitter-crystal:
-    github: sferik/twitter-crystal
-    version: 0.2.1
+    github: bkerley/twitter-crystal
+    commit: 51ec21867c692dd20ebd9baf0dbbd00d6fc1b7d1
 

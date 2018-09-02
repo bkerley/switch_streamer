@@ -21,7 +21,8 @@ dependencies:
   dotenv:
     github: gdotdesign/cr-dotenv
   twitter-crystal:
-    github: sferik/twitter-crystal
+    github: bkerley/twitter-crystal
+    branch: bkerley-delete
   mastodon:
     github: bkerley/mastodon.cr
     branch: bk-mastodon-213
