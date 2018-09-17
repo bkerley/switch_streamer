@@ -11,7 +11,7 @@ works on heroku!
    and grovel for now
 3. edit the values for your mastodon server and tokens; getting the access token
    can be done with
-   [https://mastodon-oauth-utility.herokuapp.com][https://mastodon-oauth-utility.herokuapp.com]
+   [https://mastodon-oauth-utility.herokuapp.com](https://mastodon-oauth-utility.herokuapp.com)
 4. push it to heroku
 5. test it
 
