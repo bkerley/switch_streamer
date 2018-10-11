@@ -23,8 +23,12 @@ module SwitchStreamer
       pp @source
       pp tweet.source == @source
       return unless tweet.source == @source
-      
-      text = tweet.text.gsub(%r{https://t.co.+$},"").strip
+
+      unless (unfiltered_text = tweet.full_text).is_a?(String)
+        unfiltered_text = tweet.text
+      end
+
+      text = unfiltered_text.gsub(%r{https://t.co.+$},"").strip
 
       attachments = process_media(tweet)
 
@@ -84,9 +88,9 @@ module SwitchStreamer
 
     private def upload(url)
       filename = UUID.random.to_s
-      
+
       media_attachment = nil
-      
+
       Tempfile.open(filename) do |temp|
         HTTP::Client.get url do |resp|
 
