@@ -42,6 +42,11 @@ module SwitchStreamer
       end
     end
 
+    def get_tweet(id : String)
+      response = @tw_client.get("/1.1/statuses/show.json", {"id" => id.to_s})
+      TweetCreateEvent.from_json(response)
+    end
+
     def list_hooks
       endpoint = "/1.1/account_activity/all/#{@environment_name}/webhooks.json"
       resp = @sub_client.get(endpoint)
