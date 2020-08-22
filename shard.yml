@@ -8,7 +8,7 @@ targets:
   switch_streamer:
     main: src/switch_streamer.cr
 
-crystal: 0.26.0
+crystal: 0.35.1
 
 license: MIT
 
