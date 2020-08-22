@@ -102,6 +102,9 @@ post "/hook/twitter" do |env|
       copier.process event
     end
   end
+
+  env.response.content_type = 'text/plain'
+  'OK'
 end
 
 Kemal.run
