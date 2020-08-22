@@ -103,8 +103,8 @@ post "/hook/twitter" do |env|
     end
   end
 
-  env.response.content_type = 'text/plain'
-  'OK'
+  env.response.content_type = "text/plain"
+  "OK"
 end
 
 Kemal.run
