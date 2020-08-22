@@ -1,5 +1,4 @@
 require "http/client"
-require "tempfile"
 require "uuid"
 
 module SwitchStreamer
@@ -91,7 +90,7 @@ module SwitchStreamer
 
       media_attachment = nil
 
-      Tempfile.open(filename) do |temp|
+      File.tempfile(filename) do |temp|
         HTTP::Client.get url do |resp|
 
           status = resp.status_code
