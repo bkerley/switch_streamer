@@ -10,7 +10,7 @@ shards:
 
   kemal:
     git: https://github.com/kemalcr/kemal.git
-    version: 0.26.1
+    version: 0.26.1+git.commit.a819d4792bbc63d993d6dd2b15f9af5efb0c2d8c
 
   kemal-basic-auth:
     git: https://github.com/maiha/kemal-basic-auth.git
