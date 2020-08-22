@@ -22,7 +22,7 @@ shards:
 
   mastodon:
     git: https://github.com/bkerley/mastodon.cr.git
-    version: 0.1.0+git.commit.0c5ba58a7a063e79fdfc0116044f68b3c717b434
+    version: 0.1.0+git.commit.1a897c44071a328368b6979276ba5e9c616f6150
 
   radix:
     git: https://github.com/luislavena/radix.git
