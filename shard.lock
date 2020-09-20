@@ -21,8 +21,8 @@ shards:
     version: 0.4.0
 
   mastodon:
-    git: https://github.com/bkerley/mastodon.cr.git
-    version: 0.1.0+git.commit.1a897c44071a328368b6979276ba5e9c616f6150
+    git: https://github.com/spencerking/mastodon.cr.git
+    version: 0.1.2+git.commit.255613b975959cfa58654663b26996933ad3982d
 
   radix:
     git: https://github.com/luislavena/radix.git

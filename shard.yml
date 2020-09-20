@@ -25,5 +25,5 @@ dependencies:
     github: bkerley/twitter-crystal
     branch: bkerley-delete
   mastodon:
-    github: bkerley/mastodon.cr
-    branch: bk-mastodon-213
+    github: spencerking/mastodon.cr
+    branch: master
