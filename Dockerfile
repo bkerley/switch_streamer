@@ -7,4 +7,5 @@ RUN addgroup --gid 1000 app && \
         chown -R app:app /app
 COPY --chown=app:app . /app
 RUN shards install && shards build switch_streamer
-CMD ./app --port ${PORT}
+EXPOSE 8080
+CMD ./bin/switch_streamer --port 8080
