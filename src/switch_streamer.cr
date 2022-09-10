@@ -92,7 +92,7 @@ post "/hook/twitter" do |env|
   payload = JSON.parse(valid).raw
   next unless payload.is_a? Hash
   next unless payload["for_user_id"] == ENV["TWITTER_USER"]
-  next if payload["tweet_create_events"].nil?
+  next unless payload["tweet_create_events"]?
 
 
   Array(::SwitchStreamer::TweetCreateEvent).
