@@ -6,12 +6,10 @@ module SwitchStreamer
     COPY_BUF_SIZE = 1024 * 1024
     VIDEO_UPLOAD_LIMIT = 64 * 1024 * 1024
 
-    @mastodon : ::Mastodon::REST::Client
     @user_id : String
     @source : String
 
-    def initialize(mastodon, user_id, source)
-      @mastodon = mastodon
+    def initialize(user_id, source)
       @user_id = user_id
       @source = source
     end
@@ -29,13 +27,18 @@ module SwitchStreamer
 
       text = unfiltered_text.gsub(%r{https://t.co.+$},"").strip
 
-      attachments = process_media(tweet)
+      mastodon = ::Mastodon::REST::Client.new(
+        access_token: ENV["MASTODON_TARGET_ACCESS_TOKEN"],
+        url: ENV["MASTODON_SERVER"])
 
-      @mastodon.create_status(status: text,
-                                     media_ids: attachments.map(&.id))
+      attachments = process_media(mastodon, tweet)
+
+      mastodon.
+        create_status(status: text,
+                      media_ids: attachments.map(&.id))
     end
 
-    private def process_media(tweet)
+    private def process_media(mastodon, tweet)
       blank = [] of ::Mastodon::Entities::Attachment
       extended_entities = tweet.extended_entities
       return blank if extended_entities.nil?
@@ -46,24 +49,24 @@ module SwitchStreamer
         pp medium
         case medium.type
         when "video"
-          process_video(medium)
+          process_video(mastodon, medium)
         when "photo"
-          process_photo(medium)
+          process_photo(mastodon, medium)
         else
           nil
         end
       end.compact
     end
 
-    private def process_photo(photo)
+    private def process_photo(mastodon, photo)
       url = photo.media_url_https + ":large"
 
       pp url
 
-      upload(url)
+      upload(mastodon, url)
     end
 
-    private def process_video(video)
+    private def process_video(mastodon, video)
       video_info = video.video_info
       return nil if video_info.nil?
 
@@ -82,10 +85,10 @@ module SwitchStreamer
         best
       end
 
-      upload(best_variant.url)
+      upload(mastodon, best_variant.url)
     end
 
-    private def upload(url)
+    private def upload(mastodon, url)
       filename = UUID.random.to_s
 
       media_attachment = nil
@@ -112,7 +115,7 @@ module SwitchStreamer
         end
 
         p temp.path
-        media_attachment = @mastodon.media_upload temp.path
+        media_attachment = mastodon.media_upload temp.path
 
         temp.close
         temp.delete

@@ -31,14 +31,8 @@ challenge_responder =
 hook_validator =
   ::SwitchStreamer::HookValidator.new(ENV["TWITTER_CONSUMER_SECRET"])
 
-mastodon =
-  ::Mastodon::REST::Client.new(
-      access_token: ENV["MASTODON_TARGET_ACCESS_TOKEN"],
-      url: ENV["MASTODON_SERVER"])
-
 copier =
-  ::SwitchStreamer::Copier.new(mastodon: mastodon,
-                               user_id: ENV["TWITTER_USER"],
+  ::SwitchStreamer::Copier.new(user_id: ENV["TWITTER_USER"],
                                source: ENV["TWITTER_SOURCE"]
                               )
 
